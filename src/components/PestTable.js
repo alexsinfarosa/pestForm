@@ -64,7 +64,7 @@ class EditableCell extends Component {
 @inject("store")
 @observer
 export class PestTable extends Component {
-  expandedRowRender = () => {
+  expandedRowRender = idx => {
     const columns = [
       {
         title: "Phenological Stage",
@@ -111,14 +111,12 @@ export class PestTable extends Component {
       }
     ];
     const { species } = this.props.store.app;
-    const stages = species.map(s => s.stages.slice());
-    console.log(stages);
-
+    console.log(species[idx]);
     return (
       <Table
         rowKey={(record, index) => index}
         columns={columns}
-        dataSource={stages[0]}
+        dataSource={species[idx].stages.slice()}
         pagination={false}
       />
     );
@@ -126,13 +124,7 @@ export class PestTable extends Component {
 
   render() {
     const { species } = this.props.store.app;
-    species.map(s => console.log(s.stages.slice()));
     const columns = [
-      {
-        title: "ID",
-        dataIndex: "id",
-        key: "id"
-      },
       {
         title: "Informal Name",
         dataIndex: "informalName",
@@ -148,7 +140,7 @@ export class PestTable extends Component {
         rowKey={record => record.id}
         className="components-table-demo-nested"
         columns={columns}
-        expandedRowRender={this.expandedRowRender}
+        expandedRowRender={stage => this.expandedRowRender(stage.id)}
         dataSource={species.slice()}
       />
     );

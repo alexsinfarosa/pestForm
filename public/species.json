@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": 0,
     "formalName": "Pissodes strobi",
     "informalName": "White pine weevil",
     "hosts": "spruce, pine, Douglas-fir, fir",
@@ -48,7 +48,7 @@
     ]
   },
   {
-    "id": 2,
+    "id": 1,
     "formalName": "Oligonychus ununguis",
     "informalName": "Spruce spider mite",
     "hosts": "All conifers, especially spruce and fir",
@@ -126,7 +126,7 @@
     ]
   },
   {
-    "id": 3,
+    "id": 2,
     "formalName": "Mindarus abietinus",
     "informalName": "Balsam twig aphid",
     "hosts": "Fir",
@@ -174,7 +174,7 @@
     ]
   },
   {
-    "id": 4,
+    "id": 3,
     "formalName": "Contarinia pseudotsugae",
     "informalName": "Douglas fir needle midge",
     "hosts": "Douglas-fir",
@@ -212,7 +212,7 @@
     ]
   },
   {
-    "id": 5,
+    "id": 4,
     "formalName": "Fiorina externa",
     "informalName": "Elongate hemlock scale",
     "hosts": "Fir, sometimes spruce, Douglas fir, pine",
