@@ -2,59 +2,47 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { Table, Icon, Input, Popconfirm, Button } from "antd";
 
-class EditableCell extends Component {
+class EditableCell extends React.Component {
   state = {
     value: this.props.value,
-    editable: false
+    editable: this.props.editable || false
   };
-  handleChange = e => {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.editable !== this.state.editable) {
+      this.setState({ editable: nextProps.editable });
+      if (nextProps.editable) {
+        this.cacheValue = this.state.value;
+      }
+    }
+    if (nextProps.status && nextProps.status !== this.props.status) {
+      if (nextProps.status === "save") {
+        this.props.onChange(this.state.value);
+      } else if (nextProps.status === "cancel") {
+        this.setState({ value: this.cacheValue });
+        this.props.onChange(this.cacheValue);
+      }
+    }
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      nextProps.editable !== this.state.editable ||
+      nextState.value !== this.state.value
+    );
+  }
+  handleChange(e) {
     const value = e.target.value;
     this.setState({ value });
-  };
-
-  check = () => {
-    this.setState({ editable: false });
-    if (this.props.onChange) {
-      this.props.onChange(this.state.value);
-    }
-  };
-
-  edit = () => {
-    this.setState({ editable: true });
-  };
-
-  onCellChange = (index, key) => {
-    return value => {
-      const dataSource = [...this.state.dataSource];
-      dataSource[index][key] = value;
-      this.setState({ dataSource });
-    };
-  };
-
+  }
   render() {
     const { value, editable } = this.state;
     return (
-      <div className="editable-cell">
+      <div>
         {editable
-          ? <div className="editable-cell-input-wrapper">
-              <Input
-                value={value}
-                onChange={this.handleChange}
-                onPressEnter={this.check}
-              />
-              <Icon
-                type="check"
-                className="editable-cell-icon-check"
-                onClick={this.check}
-              />
+          ? <div>
+              <Input value={value} onChange={e => this.handleChange(e)} />
             </div>
-          : <div className="editable-cell-text-wrapper">
-              {value || " "}
-              <Icon
-                type="edit"
-                className="editable-cell-icon"
-                onClick={this.edit}
-              />
+          : <div className="editable-row-text">
+              {value.toString() || " "}
             </div>}
       </div>
     );
@@ -129,6 +117,7 @@ export class PestTable extends Component {
 
   render() {
     const { species } = this.props.store.app;
+    console.log(species.slice());
     const columns = [
       {
         title: "Informal Name",
@@ -157,14 +146,16 @@ export class PestTable extends Component {
       <div>
         <br />
         <Button className="editable-add-btn" onClick={this.handleAdd}>
-          Add
+          Add Pest
         </Button>
         <br />
         <Table
+          style={{ marginTop: "10px" }}
           rowKey={record => record.id}
           className="components-table-demo-nested"
           columns={columns}
           expandedRowRender={stage => this.expandedRowRender(stage.id)}
+          // expandedRowRender={stage => console.log(stage.id)}
           dataSource={species.slice()}
         />
       </div>

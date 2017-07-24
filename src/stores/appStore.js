@@ -38,7 +38,7 @@ export default class appStore {
   addSpecie = d => {
     const id = this.species.length;
     const specie = {
-      id: id + 1,
+      id: id,
       formalName: "",
       informalName: "",
       hosts: "",
