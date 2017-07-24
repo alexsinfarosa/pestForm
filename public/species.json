@@ -1,8 +1,12 @@
 [
   {
     "id": 0,
+    "editable": false,
     "formalName": "Pissodes strobi",
-    "informalName": "White pine weevil",
+    "informalName": {
+      "value": "White pine weevil",
+      "editable": false
+    },
     "hosts": "spruce, pine, Douglas-fir, fir",
     "stages": [
       {

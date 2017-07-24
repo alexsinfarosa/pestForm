@@ -62,6 +62,39 @@ export class PestTable extends Component {
     this.props.store.app.addSpecie();
   };
 
+  handleChange(key, index, value) {
+    const { data } = this.state;
+    data[index][key].value = value;
+    this.setState({ data });
+  }
+
+  edit(index) {
+    const { species } = this.props.store.app;
+    Object.keys(species[index]).forEach(item => {
+      if (
+        species[index][item] &&
+        typeof species[index][item].editable !== "undefined"
+      ) {
+        species[index][item].editable = true;
+      }
+    });
+  }
+
+  renderColumns = (data, index, key, text) => {
+    const { editable, status } = data[index][key];
+    if (typeof editable === "undefined") {
+      return text;
+    }
+    return (
+      <EditableCell
+        editable={editable}
+        value={text}
+        onChange={value => this.handleChange(key, index, value)}
+        status={status}
+      />
+    );
+  };
+
   expandedRowRender = idx => {
     const columns = [
       {
@@ -117,12 +150,12 @@ export class PestTable extends Component {
 
   render() {
     const { species } = this.props.store.app;
-    console.log(species.slice());
     const columns = [
       {
         title: "Informal Name",
         dataIndex: "informalName",
-        key: "informalName"
+        render: (text, record, index) =>
+          this.renderColumns(species, index, "informalName", text)
       },
       { title: "Formal Name", dataIndex: "formalName", key: "formalName" },
       { title: "Hosts", dataIndex: "hosts", key: "hosts" },
@@ -138,6 +171,30 @@ export class PestTable extends Component {
                 <a>Delete</a>
               </Popconfirm>
             : null;
+        }
+      },
+      {
+        title: "Edit",
+        key: "edit",
+        render: (text, record, index) => {
+          // const { editable } = this.state.data[index].name;
+          return (
+            <div className="editable-row-operations">
+              {false
+                ? <span>
+                    <a onClick={() => this.editDone(index, "save")}>Save</a>
+                    <Popconfirm
+                      title="Sure to cancel?"
+                      onConfirm={() => this.editDone(index, "cancel")}
+                    >
+                      <a>Cancel</a>
+                    </Popconfirm>
+                  </span>
+                : <span>
+                    <a onClick={() => this.edit(index)}>Edit</a>
+                  </span>}
+            </div>
+          );
         }
       }
     ];
