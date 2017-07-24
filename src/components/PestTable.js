@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { Table, Badge, Icon, Input } from "antd";
+import { Table, Icon, Input, Popconfirm, Button } from "antd";
 
 class EditableCell extends Component {
   state = {
@@ -64,6 +64,16 @@ class EditableCell extends Component {
 @inject("store")
 @observer
 export class PestTable extends Component {
+  onDelete = index => {
+    const dataSource = [...this.props.store.app.species.slice()];
+    dataSource.splice(index, 1);
+    this.props.store.app.setSpecies(dataSource);
+  };
+
+  handleAdd = () => {
+    this.props.store.app.addSpecie();
+  };
+
   expandedRowRender = idx => {
     const columns = [
       {
@@ -103,15 +113,10 @@ export class PestTable extends Component {
         title: "Actions",
         dataIndex: "operation",
         key: "operation",
-        width: 50,
-        render: () =>
-          <span className={"table-operation"}>
-            <a>Delete </a>
-          </span>
+        width: 50
       }
     ];
     const { species } = this.props.store.app;
-    console.log(species[idx]);
     return (
       <Table
         rowKey={(record, index) => index}
@@ -132,17 +137,37 @@ export class PestTable extends Component {
       },
       { title: "Formal Name", dataIndex: "formalName", key: "formalName" },
       { title: "Hosts", dataIndex: "hosts", key: "hosts" },
-      { title: "Action", key: "operation", render: () => <a>Delete</a> }
+      {
+        title: "Action",
+        key: "operation",
+        render: (text, record, index) => {
+          return this.props.store.app.species.slice().length > 1
+            ? <Popconfirm
+                title="Sure to delete?"
+                onConfirm={() => this.onDelete(index)}
+              >
+                <a>Delete</a>
+              </Popconfirm>
+            : null;
+        }
+      }
     ];
 
     return (
-      <Table
-        rowKey={record => record.id}
-        className="components-table-demo-nested"
-        columns={columns}
-        expandedRowRender={stage => this.expandedRowRender(stage.id)}
-        dataSource={species.slice()}
-      />
+      <div>
+        <br />
+        <Button className="editable-add-btn" onClick={this.handleAdd}>
+          Add
+        </Button>
+        <br />
+        <Table
+          rowKey={record => record.id}
+          className="components-table-demo-nested"
+          columns={columns}
+          expandedRowRender={stage => this.expandedRowRender(stage.id)}
+          dataSource={species.slice()}
+        />
+      </div>
     );
   }
 }

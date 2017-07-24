@@ -31,4 +31,30 @@ export default class appStore {
       this.species.push(specieJson);
     });
   }
+
+  @action setSpecies = d => (this.species = d);
+
+  @action
+  addSpecie = d => {
+    const id = this.species.length;
+    const specie = {
+      id: id + 1,
+      formalName: "",
+      informalName: "",
+      hosts: "",
+      stages: [
+        {
+          name: "",
+          status: "",
+          ddlo: 0,
+          ddhi: 0,
+          phenologicalMarkers: "",
+          scouting: "",
+          management: "",
+          biologicalControl: ""
+        }
+      ]
+    };
+    this.species.push(specie);
+  };
 }
