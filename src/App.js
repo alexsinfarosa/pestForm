@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PestTable } from "components/PestTable";
+
 import { observer, inject } from "mobx-react";
 
 @inject("store")
@@ -8,7 +8,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <PestTable />
+        <h1>Pest Table</h1>
+        <br />
       </div>
     );
   }
