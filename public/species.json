@@ -1,10 +1,10 @@
 [
   {
-    "id": 0,
+    "id": 1,
     "formalName": "Pissodes strobi",
     "informalName": "White pine weevil",
     "hosts": "spruce, pine, Douglas-fir, fir",
-    "stages": [
+    "expand": [
       {
         "name": "Overwintering adults",
         "status": "Adults overwinter in litter under tree",
@@ -48,11 +48,11 @@
     ]
   },
   {
-    "id": 1,
+    "id": 2,
     "formalName": "Oligonychus ununguis",
     "informalName": "Spruce spider mite",
     "hosts": "All conifers, especially spruce and fir",
-    "stages": [
+    "expand": [
       {
         "name": "Egg (phase 1)",
         "status": "Overwinters as egg under bud scales and at base of needles",
@@ -126,11 +126,11 @@
     ]
   },
   {
-    "id": 2,
+    "id": 3,
     "formalName": "Mindarus abietinus",
     "informalName": "Balsam twig aphid",
     "hosts": "Fir",
-    "stages": [
+    "expand": [
       {
         "name": "Eggs",
         "status": "Overwinters as egg",
@@ -174,11 +174,11 @@
     ]
   },
   {
-    "id": 3,
+    "id": 4,
     "formalName": "Contarinia pseudotsugae",
     "informalName": "Douglas fir needle midge",
     "hosts": "Douglas-fir",
-    "stages": [
+    "expand": [
       {
         "name": "Overwinter as larvae",
         "status": "Larvae pupate in the soil beneath infested trees",
@@ -212,11 +212,11 @@
     ]
   },
   {
-    "id": 4,
+    "id": 5,
     "formalName": "Fiorina externa",
     "informalName": "Elongate hemlock scale",
     "hosts": "Fir, sometimes spruce, Douglas fir, pine",
-    "stages": [
+    "expand": [
       {
         "name": "Adult",
         "status": "Overwinter as various stages, including adults",
