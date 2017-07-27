@@ -11,7 +11,7 @@ import "index.css";
 
 const selectRow = {
   mode: "checkbox",
-  clickToSelect: true,
+  clickToSelectAndEditCell: true,
   clickToExpand: true
   // bgColor: "#D66475"
 };
