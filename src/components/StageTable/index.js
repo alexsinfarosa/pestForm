@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 
-import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+import {
+  BootstrapTable,
+  TableHeaderColumn,
+  DeleteButton
+} from "react-bootstrap-table";
+import "index.css";
+
+const selectRow = {
+  mode: "checkbox",
+  clickToSelect: true
+  // bgColor: "#D66475"
+};
 
 const cellEdit = {
   mode: "dbclick",
@@ -11,9 +22,31 @@ const cellEdit = {
 @inject("store")
 @observer
 export default class StageTable extends Component {
+  createCustomDeleteButton = onClick => {
+    return (
+      <DeleteButton
+        btnText="Delete Stage"
+        btnContextual="btn-danger"
+        className="my-custom-class"
+        btnGlyphicon="glyphicon-trash"
+        style={{ marginLeft: "10px" }}
+      />
+    );
+  };
+
+  remote = remoteObj => {
+    // Only cell editing, insert and delete row will be handled by remote store
+    remoteObj.cellEdit = true;
+    remoteObj.insertRow = true;
+    remoteObj.dropRow = true;
+    return remoteObj;
+  };
+
   render() {
     const options = {
-      insertText: "Add Stage"
+      insertText: "Add Stage",
+      onAddRow: this.handleAddRow,
+      deleteBtn: this.createCustomDeleteButton
     };
 
     if (this.props.data) {
@@ -22,7 +55,10 @@ export default class StageTable extends Component {
           data={this.props.data}
           cellEdit={cellEdit}
           insertRow={true}
+          deleteRow={true}
+          selectRow={selectRow}
           options={options}
+          remote={this.remote}
         >
           <TableHeaderColumn
             dataField="name"
@@ -51,8 +87,11 @@ export default class StageTable extends Component {
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="scouting"
-            tdStyle={{ whiteSpace: "normal" }}
             editable={{ type: "textarea" }}
+            tdStyle={{
+              whiteSpace: "normal"
+            }}
+            editColumnClassName="class-for-editing-cell"
           >
             Scouting
           </TableHeaderColumn>

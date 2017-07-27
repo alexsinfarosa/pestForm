@@ -35,14 +35,14 @@ export default class appStore {
   @action setSpecies = d => (this.species = d);
 
   @action
-  addSpecie = d => {
-    const id = this.species.length;
+  addSpecie = row => {
+    // const id = this.species.length;
     const specie = {
-      id: id,
-      formalName: "",
-      informalName: "",
-      hosts: "",
-      stages: [
+      id: row.id,
+      formalName: row.formalName,
+      informalName: row.informalName,
+      hosts: row.hosts,
+      expand: [
         {
           name: "",
           status: "",
@@ -56,5 +56,13 @@ export default class appStore {
       ]
     };
     this.species.push(specie);
+  };
+
+  @action
+  deleteSpecie = row => {
+    const data = [...this.species];
+    const idx = data.findIndex(specie => specie.id === row[0]);
+    data.splice(idx, 1);
+    this.species = data;
   };
 }

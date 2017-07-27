@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+import {
+  BootstrapTable,
+  TableHeaderColumn,
+  DeleteButton
+} from "react-bootstrap-table";
 import StageTable from "components/StageTable";
+
+import "index.css";
 
 const selectRow = {
   mode: "checkbox",
   clickToSelect: true,
-  clickToExpand: true,
-  bgColor: "#F0AD4E"
+  clickToExpand: true
+  // bgColor: "#D66475"
 };
 
 const cellEdit = {
@@ -26,6 +32,26 @@ export default class PestTable extends Component {
     };
   }
 
+  remote = remoteObj => {
+    // Only cell editing, insert and delete row will be handled by remote store
+    remoteObj.cellEdit = true;
+    remoteObj.insertRow = true;
+    remoteObj.dropRow = true;
+    return remoteObj;
+  };
+
+  createCustomDeleteButton = onClick => {
+    return (
+      <DeleteButton
+        btnText="Delete Pest"
+        btnContextual="btn-danger"
+        className="my-custom-class"
+        btnGlyphicon="glyphicon-trash"
+        style={{ marginLeft: "10px" }}
+      />
+    );
+  };
+
   isExpandableRow = row => {
     if (row.id) return true;
     else return false;
@@ -36,18 +62,21 @@ export default class PestTable extends Component {
   };
 
   render() {
-    const { species } = this.props.store.app;
+    const { species, addSpecie, deleteSpecie } = this.props.store.app;
     const { currPage } = this.state;
 
     const options = {
       insertText: "Add Pest",
-      deleteText: "Delete Pest",
       sizePerPageList: [5, 10, 15, 20],
       sizePerPage: 10,
       page: currPage,
       sortName: "id",
       sortOrder: "asc",
-      expandRowBgColor: "#F2BB6E",
+      expandRowBgColor: "#A6C48A",
+      deleteBtn: this.createCustomDeleteButton,
+      onCellEdit: this.props.onCellEdit,
+      onDeleteRow: deleteSpecie,
+      onAddRow: addSpecie,
       onRowClick: function(row) {
         console.log(`You click row id: ${row.id}`);
       },
@@ -58,7 +87,6 @@ export default class PestTable extends Component {
 
     return (
       <BootstrapTable
-        containerStyle={{ margin: "0 auto", padding: "20px" }}
         // bordered={false}
         // keyBoardNav
         striped
@@ -75,6 +103,7 @@ export default class PestTable extends Component {
         pagination={true}
         expandableRow={this.isExpandableRow}
         expandComponent={this.expandComponent}
+        remote={this.remote}
       >
         <TableHeaderColumn
           dataField="id"
@@ -89,6 +118,7 @@ export default class PestTable extends Component {
           dataField="formalName"
           dataSort={true}
           tdStyle={{ whiteSpace: "normal" }}
+          editColumnClassName="class-for-editing-cell"
         >
           Formal Name
         </TableHeaderColumn>
