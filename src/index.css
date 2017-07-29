@@ -5,7 +5,4 @@ body {
 }
 
 .class-for-editing-cell {
-  background: pink;
-  overflow: hidden;
-  min-height: 500px;
 }

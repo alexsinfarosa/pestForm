@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { inject, observer } from "mobx-react";
 import {
   BootstrapTable,
   TableHeaderColumn,
   DeleteButton
 } from "react-bootstrap-table";
+import { inject, observer } from "mobx-react";
+
 import StageTable from "components/StageTable";
 
 import "index.css";
@@ -52,17 +53,12 @@ export default class PestTable extends Component {
     );
   };
 
-  isExpandableRow = row => {
-    if (row.id) return true;
-    else return false;
-  };
-
   expandComponent = row => {
     return <StageTable data={row.expand} />;
   };
 
   render() {
-    const { species, addSpecie, deleteSpecie } = this.props.store.app;
+    const { species, addSpecie, deleteSpecie, editSpecie } = this.props;
     const { currPage } = this.state;
 
     const options = {
@@ -74,15 +70,15 @@ export default class PestTable extends Component {
       sortOrder: "asc",
       expandRowBgColor: "#A6C48A",
       deleteBtn: this.createCustomDeleteButton,
-      onCellEdit: this.props.onCellEdit,
+      onCellEdit: editSpecie,
       onDeleteRow: deleteSpecie,
-      onAddRow: addSpecie,
-      onRowClick: function(row) {
-        console.log(`You click row id: ${row.id}`);
-      },
-      onRowDoubleClick: function(row) {
-        console.log(`You double click row id: ${row.id}`);
-      }
+      onAddRow: addSpecie
+      // onRowClick: function(row) {
+      //   console.log(`You click row id: ${row.id}`);
+      // },
+      // onRowDoubleClick: function(row) {
+      //   console.log(`You double click row id: ${row.id}`);
+      // }
     };
 
     return (
@@ -92,8 +88,7 @@ export default class PestTable extends Component {
         striped
         hover
         // condensed
-        autoValue={true}
-        data={species.slice()}
+        data={species}
         cellEdit={cellEdit}
         insertRow={true}
         deleteRow={true}
@@ -101,22 +96,24 @@ export default class PestTable extends Component {
         search={true}
         options={options}
         pagination={true}
-        expandableRow={this.isExpandableRow}
+        expandableRow={() => {
+          return true;
+        }}
         expandComponent={this.expandComponent}
         remote={this.remote}
       >
         <TableHeaderColumn
           dataField="id"
-          width="40"
-          dataAlign="center"
-          isKey
+          // width="40"
+          // dataAlign="center"
           hidden
-        >
-          ID
-        </TableHeaderColumn>
+          isKey={true}
+          autoValue={true}
+        />
         <TableHeaderColumn
           dataField="formalName"
           dataSort={true}
+          editable={{ type: "textarea" }}
           tdStyle={{ whiteSpace: "normal" }}
           editColumnClassName="class-for-editing-cell"
         >
@@ -124,11 +121,19 @@ export default class PestTable extends Component {
         </TableHeaderColumn>
         <TableHeaderColumn
           dataField="informalName"
+          dataSort={true}
+          editable={{ type: "textarea" }}
           tdStyle={{ whiteSpace: "normal" }}
+          editColumnClassName="class-for-editing-cell"
         >
           Informal Name
         </TableHeaderColumn>
-        <TableHeaderColumn dataField="hosts" tdStyle={{ whiteSpace: "normal" }}>
+        <TableHeaderColumn
+          dataField="hosts"
+          editable={{ type: "textarea" }}
+          tdStyle={{ whiteSpace: "normal" }}
+          editColumnClassName="class-for-editing-cell"
+        >
           Hosts
         </TableHeaderColumn>
       </BootstrapTable>

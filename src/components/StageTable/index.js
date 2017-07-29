@@ -61,15 +61,24 @@ export default class StageTable extends Component {
           remote={this.remote}
         >
           <TableHeaderColumn
-            dataField="name"
+            dataField="id"
+            hidden
             isKey={true}
+            autoValue={true}
+          />
+          <TableHeaderColumn
+            dataField="name"
+            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
+            editColumnClassName="class-for-editing-cell"
           >
             Phenological Stage
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="status"
+            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
+            editColumnClassName="class-for-editing-cell"
           >
             Status
           </TableHeaderColumn>
@@ -81,29 +90,33 @@ export default class StageTable extends Component {
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="phenologicalMarkers"
+            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
+            editColumnClassName="class-for-editing-cell"
           >
             Phenological Markers
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="scouting"
             editable={{ type: "textarea" }}
-            tdStyle={{
-              whiteSpace: "normal"
-            }}
+            tdStyle={{ whiteSpace: "normal" }}
             editColumnClassName="class-for-editing-cell"
           >
             Scouting
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="management"
+            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
+            editColumnClassName="class-for-editing-cell"
           >
             Management
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="biologicalControl"
+            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
+            editColumnClassName="class-for-editing-cell"
           >
             Biological Control
           </TableHeaderColumn>

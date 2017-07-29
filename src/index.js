@@ -11,15 +11,9 @@ import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import store from "stores";
 import { Provider } from "mobx-react";
 
-// antd
-import LocaleProvider from "antd/lib/locale-provider";
-import enUS from "antd/lib/locale-provider/en_US";
-
 ReactDOM.render(
   <Provider store={store}>
-    <LocaleProvider locale={enUS}>
-      <App />
-    </LocaleProvider>
+    <App />
   </Provider>,
   document.getElementById("root")
 );
