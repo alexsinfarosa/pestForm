@@ -65,6 +65,13 @@ export default class PestTable extends Component {
     );
   };
 
+  emptyCellValidator(value) {
+    if (!value || value === "") {
+      return "The field cannot be empty!";
+    }
+    return true;
+  }
+
   render() {
     const { species, addSpecie, deleteSpecie, editSpecie } = this.props;
     const { currPage } = this.state;
@@ -121,26 +128,26 @@ export default class PestTable extends Component {
         <TableHeaderColumn
           dataField="formalName"
           dataSort={true}
-          editable={{ type: "textarea" }}
           tdStyle={{ whiteSpace: "normal" }}
           editColumnClassName="class-for-editing-cell"
+          editable={{ type: "textarea", validator: this.emptyCellValidator }}
         >
           Formal Name
         </TableHeaderColumn>
         <TableHeaderColumn
           dataField="informalName"
           dataSort={true}
-          editable={{ type: "textarea" }}
           tdStyle={{ whiteSpace: "normal" }}
           editColumnClassName="class-for-editing-cell"
+          editable={{ type: "textarea", validator: this.emptyCellValidator }}
         >
           Informal Name
         </TableHeaderColumn>
         <TableHeaderColumn
           dataField="hosts"
-          editable={{ type: "textarea" }}
           tdStyle={{ whiteSpace: "normal" }}
           editColumnClassName="class-for-editing-cell"
+          editable={{ type: "textarea", validator: this.emptyCellValidator }}
         >
           Hosts
         </TableHeaderColumn>

@@ -42,6 +42,21 @@ export default class StageTable extends Component {
     return remoteObj;
   };
 
+  degreeDayValidator(value) {
+    const nan = isNaN(parseInt(value, 10));
+    if (nan) {
+      return "Degree Day must be a integer!";
+    }
+    return true;
+  }
+
+  emptyCellValidator(value) {
+    if (!value || value === "") {
+      return "The field cannot be empty!";
+    }
+    return true;
+  }
+
   render() {
     const { stages, addStage, deleteStage, editStage } = this.props;
     const options = {
@@ -76,55 +91,65 @@ export default class StageTable extends Component {
           <TableHeaderColumn
             dataField="name"
             dataSort={true}
-            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
             editColumnClassName="class-for-editing-cell"
+            editable={{ type: "textarea", validator: this.emptyCellValidator }}
           >
             Phenological Stage
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="status"
-            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
             editColumnClassName="class-for-editing-cell"
+            editable={{ type: "textarea", validator: this.emptyCellValidator }}
           >
             Status
           </TableHeaderColumn>
-          <TableHeaderColumn dataField="ddlo" width="70" dataAlign="center">
+          <TableHeaderColumn
+            dataField="ddlo"
+            width="70"
+            dataAlign="center"
+            editable={{ validator: this.degreeDayValidator }}
+          >
             ddlo
           </TableHeaderColumn>
-          <TableHeaderColumn dataField="ddhi" width="70" dataAlign="center">
+          <TableHeaderColumn
+            dataField="ddhi"
+            width="70"
+            dataAlign="center"
+            editable={{ validator: this.degreeDayValidator }}
+          >
             ddhi
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="phenologicalMarkers"
-            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
             editColumnClassName="class-for-editing-cell"
+            editable={{ type: "textarea", validator: this.emptyCellValidator }}
           >
             Phenological Markers
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="scouting"
-            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
             editColumnClassName="class-for-editing-cell"
+            editable={{ type: "textarea", validator: this.emptyCellValidator }}
           >
             Scouting
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="management"
-            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
             editColumnClassName="class-for-editing-cell"
+            editable={{ type: "textarea", validator: this.emptyCellValidator }}
           >
             Management
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="biologicalControl"
-            editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
             editColumnClassName="class-for-editing-cell"
+            editable={{ type: "textarea", validator: this.emptyCellValidator }}
           >
             Biological Control
           </TableHeaderColumn>
