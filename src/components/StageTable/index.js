@@ -51,10 +51,7 @@ export default class StageTable extends Component {
       deleteBtn: this.createCustomDeleteButton,
       onCellEdit: editStage,
       onDeleteRow: deleteStage,
-      onAddRow: addStage,
-      onRowClick: row => {
-        console.log(row.id);
-      }
+      onAddRow: addStage
     };
 
     if (this.props.stages) {

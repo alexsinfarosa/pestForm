@@ -85,22 +85,24 @@ class App extends Component {
   };
 
   deleteStage = stageId => {
-    console.log(stageId);
     const species = [...this.state.species];
     const { pestID } = this.props.store.app;
     const pest = species.find(pest => pest.id === pestID);
-    console.log(pest);
     const stage = pest.expand.find(stage => stage.id === stageId[0]);
-    console.log(stage);
     const stageIdx = pest.expand.findIndex(s => s.id === stage.id);
-    console.log(stageIdx);
     pest.expand.splice(stageIdx, 1);
-    console.log(pest);
     this.setState({ species });
   };
 
-  editStage = d => {
-    console.log(d);
+  editStage = (row, fieldName, value) => {
+    const species = [...this.state.species];
+    const { pestID } = this.props.store.app;
+    const pest = species.find(pest => pest.id === pestID);
+    const stage = pest.expand.find(stage => stage.id === row.id);
+    const stageIdx = pest.expand.findIndex(s => s.id === stage.id);
+    row[fieldName] = value;
+    pest.expand.splice(stageIdx, 1, row);
+    this.setState({ species });
   };
 
   render() {
