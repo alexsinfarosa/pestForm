@@ -54,7 +54,15 @@ export default class PestTable extends Component {
   };
 
   expandComponent = row => {
-    return <StageTable data={row.expand} />;
+    const { addStage, deleteStage, editStage } = this.props;
+    return (
+      <StageTable
+        stages={row.expand}
+        addStage={addStage}
+        deleteStage={deleteStage}
+        editStage={editStage}
+      />
+    );
   };
 
   render() {
@@ -72,10 +80,10 @@ export default class PestTable extends Component {
       deleteBtn: this.createCustomDeleteButton,
       onCellEdit: editSpecie,
       onDeleteRow: deleteSpecie,
-      onAddRow: addSpecie
-      // onRowClick: function(row) {
-      //   console.log(`You click row id: ${row.id}`);
-      // },
+      onAddRow: addSpecie,
+      onRowClick: row => {
+        this.props.store.app.setPestID(row.id);
+      }
       // onRowDoubleClick: function(row) {
       //   console.log(`You double click row id: ${row.id}`);
       // }
@@ -91,7 +99,7 @@ export default class PestTable extends Component {
         data={species}
         cellEdit={cellEdit}
         insertRow={true}
-        deleteRow={true}
+        deleteRow={species.length > 1 ? true : false}
         selectRow={selectRow}
         search={true}
         options={options}

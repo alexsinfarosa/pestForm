@@ -6,6 +6,8 @@ export default class appStore {
   }
 
   @observable isLoading = false;
+  @observable pestID = null;
+  @action setPestID = d => (this.pestID = d);
 
   // Species ------------------------------------------------------------------
   @observable species = [];

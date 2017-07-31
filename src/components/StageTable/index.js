@@ -6,12 +6,12 @@ import {
   TableHeaderColumn,
   DeleteButton
 } from "react-bootstrap-table";
+
 import "index.css";
 
 const selectRow = {
   mode: "checkbox",
-  clickToSelect: true
-  // bgColor: "#D66475"
+  clickToSelectAndEditCell: true
 };
 
 const cellEdit = {
@@ -43,19 +43,29 @@ export default class StageTable extends Component {
   };
 
   render() {
+    const { stages, addStage, deleteStage, editStage } = this.props;
     const options = {
-      insertText: "Add Stage",
-      onAddRow: this.handleAddRow,
-      deleteBtn: this.createCustomDeleteButton
+      insertText: "Add Phenological Stage",
+      sortName: "id",
+      sortOrder: "asc",
+      deleteBtn: this.createCustomDeleteButton,
+      onCellEdit: editStage,
+      onDeleteRow: deleteStage,
+      onAddRow: addStage,
+      onRowClick: row => {
+        console.log(row.id);
+      }
     };
 
-    if (this.props.data) {
+    if (this.props.stages) {
       return (
         <BootstrapTable
-          data={this.props.data}
+          striped
+          hover
+          data={stages}
           cellEdit={cellEdit}
           insertRow={true}
-          deleteRow={true}
+          deleteRow={stages.length > 1 ? true : false}
           selectRow={selectRow}
           options={options}
           remote={this.remote}
@@ -68,6 +78,7 @@ export default class StageTable extends Component {
           />
           <TableHeaderColumn
             dataField="name"
+            dataSort={true}
             editable={{ type: "textarea" }}
             tdStyle={{ whiteSpace: "normal" }}
             editColumnClassName="class-for-editing-cell"

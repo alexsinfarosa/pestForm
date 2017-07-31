@@ -1,8 +1,12 @@
 import React, { Component } from "react";
+import { inject, observer } from "mobx-react";
+
 import PestTable from "components/PestTable";
 import { Flex, Box } from "rebass";
 import { base } from "base";
 
+@inject("store")
+@observer
 class App extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +35,7 @@ class App extends Component {
       hosts: row.hosts,
       expand: [
         {
+          id: Date.now(),
           name: "",
           status: "",
           ddlo: 0,
@@ -61,6 +66,43 @@ class App extends Component {
     this.setState({ species });
   };
 
+  // STAGE ---------------------------------------
+  addStage = stage => {
+    const species = [...this.state.species];
+    const { pestID } = this.props.store.app;
+    const pest = species.find(pest => pest.id === pestID);
+    const idx = species.findIndex(specie => specie.id === pest.id);
+    if (
+      species[idx].expand[0].name === "" &&
+      species[idx].expand.length === 1
+    ) {
+      species[idx].expand.splice(0, 1, stage);
+      this.setState({ species });
+    } else {
+      pest.expand.push(stage);
+      this.setState({ species });
+    }
+  };
+
+  deleteStage = stageId => {
+    console.log(stageId);
+    const species = [...this.state.species];
+    const { pestID } = this.props.store.app;
+    const pest = species.find(pest => pest.id === pestID);
+    console.log(pest);
+    const stage = pest.expand.find(stage => stage.id === stageId[0]);
+    console.log(stage);
+    const stageIdx = pest.expand.findIndex(s => s.id === stage.id);
+    console.log(stageIdx);
+    pest.expand.splice(stageIdx, 1);
+    console.log(pest);
+    this.setState({ species });
+  };
+
+  editStage = d => {
+    console.log(d);
+  };
+
   render() {
     return (
       <Flex column m={2}>
@@ -77,6 +119,9 @@ class App extends Component {
             addSpecie={this.addSpecie}
             deleteSpecie={this.deleteSpecie}
             editSpecie={this.editSpecie}
+            addStage={this.addStage}
+            deleteStage={this.deleteStage}
+            editStage={this.editStage}
           />
         </Box>
       </Flex>
