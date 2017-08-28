@@ -109,8 +109,22 @@ class App extends Component {
   render() {
     return (
       <Flex column m={2}>
-        <Box mb={2}>
-          <h1>Ornamental Pest Table</h1>
+        <Flex justify="space-between">
+          <Box>
+            <h1>Ornamental Pest Table</h1>
+          </Box>
+          <Box>
+            <ul>
+              <li>
+                Click to <b>select</b> row
+              </li>
+              <li>
+                Double click to <b>edit</b> a cell
+              </li>
+            </ul>
+          </Box>
+        </Flex>
+        <Box>
           <h3>
             ({this.state.species.length}) pests
           </h3>
