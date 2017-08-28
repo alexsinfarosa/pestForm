@@ -96,14 +96,15 @@ export default class PestTable extends Component {
       // }
     };
 
+    const subgroup = ["Group A", "Group B", "Group C", "Group D"];
+
     return (
-      <BootstrapTable
-        // bordered={false}
-        // keyBoardNav
+      <BootstrapTable // keyBoardNav // bordered={false}
         striped
         hover
-        // condensed
-        data={species}
+        data={
+          species // condensed
+        }
         cellEdit={cellEdit}
         insertRow={true}
         deleteRow={species.length > 1 ? true : false}
@@ -118,13 +119,24 @@ export default class PestTable extends Component {
         remote={this.remote}
       >
         <TableHeaderColumn
-          dataField="id"
-          // width="40"
-          // dataAlign="center"
+          dataField="id" // dataAlign="center" // width="40"
           hidden
           isKey={true}
           autoValue={true}
         />
+        <TableHeaderColumn
+          dataField="subgroup"
+          dataSort={true}
+          tdStyle={{ whiteSpace: "normal" }}
+          editColumnClassName="class-for-editing-cell"
+          editable={{
+            type: "select",
+            // validator: this.emptyCellValidator,
+            options: { values: subgroup }
+          }}
+        >
+          Subgroup
+        </TableHeaderColumn>
         <TableHeaderColumn
           dataField="formalName"
           dataSort={true}

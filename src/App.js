@@ -30,6 +30,7 @@ class App extends Component {
     const species = [...this.state.species];
     const specie = {
       id: row.id,
+      subgroup: row.subgroup,
       formalName: row.formalName,
       informalName: row.informalName,
       hosts: row.hosts,
