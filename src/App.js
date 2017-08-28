@@ -116,7 +116,7 @@ class App extends Component {
           <Box>
             <ul>
               <li>
-                Click to <b>select</b> row
+                Click to <b>select</b> a row and view Phenological Stages
               </li>
               <li>
                 Double click to <b>edit</b> a cell
