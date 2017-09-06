@@ -96,7 +96,20 @@ export default class PestTable extends Component {
       // }
     };
 
-    const subgroup = ["Group A", "Group B", "Group C", "Group D"];
+    const subgroup = [
+      "Borers",
+      "Moths",
+      "Aphids",
+      "Adelgids",
+      "Sawflies",
+      "Leaf Miners",
+      "Scales",
+      "Mites",
+      "Midges",
+      "Beetles",
+      "Weevil",
+      "Other"
+    ];
 
     return (
       <BootstrapTable // keyBoardNav // bordered={false}
