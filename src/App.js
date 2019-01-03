@@ -111,7 +111,7 @@ class App extends Component {
       <Flex column m={2}>
         <Flex justify="space-between">
           <Box>
-            <h1>Ornamental Pest Table</h1>
+            <h1>Ornamental Pest Form</h1>
           </Box>
           <Box>
             <ul>
@@ -125,9 +125,7 @@ class App extends Component {
           </Box>
         </Flex>
         <Box>
-          <h3>
-            ({this.state.species.length}) pests
-          </h3>
+          <h3>({this.state.species.length}) pests</h3>
         </Box>
 
         <Box>
