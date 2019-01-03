@@ -97,22 +97,31 @@ export default class PestTable extends Component {
     };
 
     const subgroup = [
-      "Borers",
-      "Moths",
-      "Aphids",
       "Adelgids",
-      "Sawflies",
-      "Leaf Miners",
-      "Scales",
-      "Mites",
-      "Midges",
+      "Aphids",
       "Beetles",
+      "Beetles, Borers",
+      "Beetles, Leafminers",
+      "Borers",
+      "Borers, Moths",
+      "Borers, Weevil",
+      "Fly",
+      "Fly, Leafminers",
+      "Leafminers",
+      "Leafminers, Moth",
+      "Leafminers, Sawflies",
+      "Midges",
+      "Mites",
+      "Moths",
+      "Sawflies",
+      "Scales",
       "Weevil",
       "Other"
     ];
 
     return (
       <BootstrapTable // keyBoardNav // bordered={false}
+        version="4"
         striped
         hover
         data={
